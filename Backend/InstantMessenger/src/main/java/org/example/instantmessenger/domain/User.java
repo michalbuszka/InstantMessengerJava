@@ -2,6 +2,7 @@ package org.example.instantmessenger.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -35,4 +36,10 @@ private UUID id;
         return id;
     }
 
+    @OneToMany
+    public List<Conversation> conversations;
+
+    public List<Conversation> getConversations() {
+        return conversations;
+    }
 }

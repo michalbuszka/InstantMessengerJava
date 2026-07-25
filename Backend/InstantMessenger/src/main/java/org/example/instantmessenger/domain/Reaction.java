@@ -21,7 +21,23 @@ public class Reaction {
 
     private String emojiCode;
 
+    @JoinColumn(name = "message_id")
+    @ManyToOne
+    private Message message;
+
+    @JoinColumn(name = "user_id")
+    @ManyToOne
+    private User user;
+
     public String getEmojiCode() {
         return emojiCode;
+    }
+
+    public Message getMessage() {
+        return message;
+    }
+
+    public User getUser() {
+        return user;
     }
 }
