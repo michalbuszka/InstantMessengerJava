@@ -18,6 +18,7 @@ public class ChatService {
     }
     public void sendMessage(MessageDtos.SendMessageRequest request, UUID senderId)
     {
-        Conversation conversation = conversationService.getOrCreateConversation(request, senderId);
+        Conversation conversation = conversationService.getOrCreatePrivateConversation(request, senderId);
+        messageService.saveMessage(conversation, senderId, request.messageContent());
     }
 }

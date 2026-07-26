@@ -7,7 +7,6 @@ import org.example.instantmessenger.domain.Conversation;
 import org.example.instantmessenger.domain.ConversationType;
 import org.example.instantmessenger.infrastructure.ConversationRepository;
 import org.example.instantmessenger.infrastructure.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class ConversationService {
         this.userRepository = userRepository;
     }
 
-    public Conversation getOrCreateConversation (MessageDtos.SendMessageRequest request, UUID senderId) {
+    public Conversation getOrCreatePrivateConversation(MessageDtos.SendMessageRequest request, UUID senderId) {
         if (request.conversationId() != null)
         {
             return conversationRepository.findById(request.conversationId()).orElseThrow(() -> new ConversationNotFoundException(request.conversationId()));

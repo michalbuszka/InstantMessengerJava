@@ -3,6 +3,7 @@ package org.example.instantmessenger.application;
 import org.example.instantmessenger.application.dtos.MessageDtos;
 import org.example.instantmessenger.application.mappers.MessageMapper;
 import org.example.instantmessenger.application.services.MessageService;
+import org.example.instantmessenger.domain.Conversation;
 import org.example.instantmessenger.domain.Message;
 import org.example.instantmessenger.domain.User;
 import org.example.instantmessenger.infrastructure.MessageRepository;
@@ -32,10 +33,9 @@ public class MessageServiceTest {
     @Test
     void shouldSaveMessage () {
         when(userRepository.findById(any(UUID.class))).thenReturn(Optional.of(mock(User.class)));
+        var conversation = mock(Conversation.class);
         when(messageMapper.map(any(), any(), any())).thenReturn(mock(Message.class));
-        var sendMessage = new MessageDtos.SendMessageRequest(UUID.randomUUID(), null, "dziala");
-        when(messageMapper.map(any(), any(), any())).thenReturn(mock(Message.class));
-        messageService.saveMessage(sendMessage, UUID.randomUUID());
+        messageService.saveMessage(conversation, UUID.randomUUID(), "test content");
         verify(messageRepository, times(1)).save(any(Message.class));
     }
 }

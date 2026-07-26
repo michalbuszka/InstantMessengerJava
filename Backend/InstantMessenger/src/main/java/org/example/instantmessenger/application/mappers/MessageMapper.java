@@ -10,7 +10,7 @@ import java.time.Instant;
 
 @Component
 public class MessageMapper {
-    public Message map (SendMessageRequest sendMessageRequest, Conversation conversation, User sender) {
-        return new Message(conversation, sender, sendMessageRequest.messageContent(), Instant.now());
+    public Message map (String messageContent, Conversation conversation, User sender) {
+        return new Message(conversation, sender, messageContent, Instant.now());
     }
 }

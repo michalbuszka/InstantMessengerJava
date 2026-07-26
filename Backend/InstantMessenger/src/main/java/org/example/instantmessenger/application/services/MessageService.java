@@ -26,10 +26,9 @@ public class MessageService {
         this.userRepository = userRepository;
     }
 
-    public void saveMessage(MessageDtos.SendMessageRequest sendMessageRequest, UUID senderId) {
+    public void saveMessage(Conversation conversation, UUID senderId, String messageContent) {
         User sender = userRepository.findById(senderId).orElseThrow(() -> new UserNotFoundException(senderId));
-        var conversation = new Conversation();
-        Message message = messageMapper.map(sendMessageRequest, conversation, sender);
+        Message message = messageMapper.map(messageContent, conversation, sender);
         messageRepository.save(message);
     }
 }
