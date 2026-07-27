@@ -1,6 +1,5 @@
 package org.example.instantmessenger.application.services;
 
-import org.example.instantmessenger.application.dtos.MessageDtos;
 import org.example.instantmessenger.application.exceptions.UserNotFoundException;
 import org.example.instantmessenger.application.mappers.MessageMapper;
 import org.example.instantmessenger.domain.Conversation;
@@ -15,9 +14,9 @@ import java.util.UUID;
 
 @Service
 public class MessageService {
-    private MessageMapper messageMapper;
-    private MessageRepository messageRepository;
-    private UserRepository userRepository;
+    private final MessageMapper messageMapper;
+    private final MessageRepository messageRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public MessageService(MessageMapper messageMapper, MessageRepository messageRepository, UserRepository userRepository) {

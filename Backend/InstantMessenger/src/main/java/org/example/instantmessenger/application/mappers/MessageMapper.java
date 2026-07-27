@@ -1,6 +1,5 @@
 package org.example.instantmessenger.application.mappers;
 
-import org.example.instantmessenger.application.dtos.MessageDtos.SendMessageRequest;
 import org.example.instantmessenger.domain.Conversation;
 import org.example.instantmessenger.domain.Message;
 import org.example.instantmessenger.domain.User;

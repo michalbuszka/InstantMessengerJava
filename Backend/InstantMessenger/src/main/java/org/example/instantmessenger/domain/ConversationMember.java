@@ -1,6 +1,7 @@
 package org.example.instantmessenger.domain;
 
 import jakarta.persistence.*;
+import org.example.instantmessenger.application.dtos.ConversationMemberDto;
 
 import java.util.UUID;
 
@@ -16,6 +17,10 @@ public class ConversationMember {
     }
     public ConversationMember () {
 
+    }
+
+    public void setUserNick(String userNick) {
+        this.userNick = userNick;
     }
 
     @Id
@@ -52,6 +57,10 @@ public class ConversationMember {
 
     public UUID getId() {
         return id;
+    }
+
+    public ConversationMemberDto.ConversationMember map () {
+        return new ConversationMemberDto.ConversationMember(id, userNick);
     }
 
 }

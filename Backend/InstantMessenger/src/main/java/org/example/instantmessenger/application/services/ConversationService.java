@@ -1,6 +1,6 @@
 package org.example.instantmessenger.application.services;
 
-import org.example.instantmessenger.application.dtos.MessageDtos;
+import org.example.instantmessenger.application.dtos.MessageDto;
 import org.example.instantmessenger.application.exceptions.ConversationNotFoundException;
 import org.example.instantmessenger.application.exceptions.UserNotFoundException;
 import org.example.instantmessenger.domain.Conversation;
@@ -14,15 +14,15 @@ import java.util.UUID;
 
 @Service
 public class ConversationService {
-    private ConversationRepository conversationRepository;
-    private UserRepository userRepository;
+    private final ConversationRepository conversationRepository;
+    private final UserRepository userRepository;
 
     public ConversationService(ConversationRepository conversationRepository, UserRepository userRepository) {
         this.conversationRepository = conversationRepository;
         this.userRepository = userRepository;
     }
 
-    public Conversation getOrCreatePrivateConversation(MessageDtos.SendMessageRequest request, UUID senderId) {
+    public Conversation getOrCreatePrivateConversation(MessageDto.SendMessageRequest request, UUID senderId) {
         if (request.conversationId() != null)
         {
             return conversationRepository.findById(request.conversationId()).orElseThrow(() -> new ConversationNotFoundException(request.conversationId()));

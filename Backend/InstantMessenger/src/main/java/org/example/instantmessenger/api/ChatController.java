@@ -1,13 +1,15 @@
 package org.example.instantmessenger.api;
 
-import org.example.instantmessenger.application.dtos.MessageDtos;
+import org.example.instantmessenger.application.dtos.MessageDto;
 import org.example.instantmessenger.application.services.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/v1/chat")
 public class ChatController {
     @Autowired
     public ChatController(ChatService chatService) {
@@ -16,7 +18,8 @@ public class ChatController {
 
     private ChatService chatService;
     @PostMapping("/message")
-    public void sendMessage (@RequestBody MessageDtos.SendMessageRequest sendMessageRequest) {
+    @ResponseStatus(HttpStatus.OK)
+    public void sendMessage (@RequestBody MessageDto.SendMessageRequest sendMessageRequest) {
         chatService.sendMessage(sendMessageRequest, UUID.randomUUID());
     }
 }
