@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface ConversationMemberRepository extends JpaRepository<ConversationMember, UUID> {
     List<ConversationMember> getConversationMemberByConversationId(UUID conversationId);
+    boolean existsByConversationIdAndUserId(UUID conversationId, UUID userId);
 }

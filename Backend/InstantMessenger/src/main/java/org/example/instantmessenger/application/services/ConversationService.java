@@ -10,6 +10,7 @@ import org.example.instantmessenger.infrastructure.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -27,7 +28,8 @@ public class ConversationService {
         {
             return conversationRepository.findById(request.conversationId()).orElseThrow(() -> new ConversationNotFoundException(request.conversationId()));
         }
-        return createPrivateConversation(senderId, request.recevierId());
+        Optional<Conversation> c = conversationRepository.findConversationBetween(request.recevierId(), senderId, ConversationType.direct);
+        return c.orElseGet(() -> createPrivateConversation(senderId, request.recevierId()));
     }
     private Conversation createPrivateConversation(UUID user1, UUID user2)
     {
