@@ -1,0 +1,36 @@
+.conversation
+{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background-color: #ffffff;
+}
+
+.messageType
+{
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 8fr 1fr;
+}
+
+.messages
+{
+    overflow-y: scroll;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.conversationHeader
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row;
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* Opcjonalna ramka */
+}

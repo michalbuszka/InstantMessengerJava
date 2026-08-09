@@ -1,7 +1,9 @@
 package org.example.instantmessenger.application;
 
 import org.example.instantmessenger.application.dtos.ConvesationDto;
+import org.example.instantmessenger.application.dtos.MessageDto;
 import org.example.instantmessenger.application.services.ChatService;
+import org.example.instantmessenger.application.services.ConversationService;
 import org.example.instantmessenger.domain.Conversation;
 import org.example.instantmessenger.domain.ConversationMember;
 import org.example.instantmessenger.domain.ConversationType;
@@ -37,6 +39,8 @@ class ConversationIT {
 
     @Autowired
     private ChatService chatService;
+    @Autowired
+    private ConversationService conversationService;
 
     @Test
     @DisplayName("Powinien zwrócić połączoną listę grup i kontaktów pasujących do frazy")
@@ -68,5 +72,19 @@ class ConversationIT {
         assertThat(result)
                 .extracting("name")
                 .containsExactlyInAnyOrder("Grupa Janek", "Janusz");
+    }
+    @Test
+    @DisplayName("Should create new conversation when sending message.")
+    void shouldCreateNewConversationWhenSendingMessage ()
+    {
+        User user1 = userRepository.save(
+                new User("Janusz", "janusz_" + UUID.randomUUID() + "@example.com", "hashed_password")
+        );
+        User user2 = userRepository.save(
+                new User("Adam", "adam_" + UUID.randomUUID() + "@example.com", "hashed_password")
+        );
+        MessageDto.SendMessageRequest request = new MessageDto.SendMessageRequest(null, user2.getId(), "siemka");
+        var c = conversationService.getOrCreatePrivateConversation(request, user1.getId());
+        assertThat(c).isNotNull();
     }
 }
