@@ -35,9 +35,9 @@ public class ChatService {
         this.conversationRepository = conversationRepository;
         this.userRepository = userRepository;
     }
-    public void sendMessage(MessageDto.SendMessageRequest request, UUID senderId)
+    public void sendMessage(MessageDto.SendMessageEvent request, UUID senderId)
     {
-        Conversation conversation = conversationService.getOrCreatePrivateConversation(request, senderId);
+        Conversation conversation = conversationService.getOrCreatePrivateConversation(request);
         messageService.saveMessage(conversation, senderId, request.messageContent());
     }
     public void editNick (MessageDto.EditNickRequest request, UUID senderId) {

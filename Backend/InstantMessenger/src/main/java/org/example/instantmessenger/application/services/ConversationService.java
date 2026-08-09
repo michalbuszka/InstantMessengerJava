@@ -23,13 +23,13 @@ public class ConversationService {
         this.userRepository = userRepository;
     }
 
-    public Conversation getOrCreatePrivateConversation(MessageDto.SendMessageRequest request, UUID senderId) {
-        if (request.conversationId() != null)
+    public Conversation getOrCreatePrivateConversation(MessageDto.SendMessageEvent event) {
+        if (event.conversationId() != null)
         {
-            return conversationRepository.findById(request.conversationId()).orElseThrow(() -> new ConversationNotFoundException(request.conversationId()));
+            return conversationRepository.findById(event.conversationId()).orElseThrow(() -> new ConversationNotFoundException(event.conversationId()));
         }
-        Optional<Conversation> c = conversationRepository.findConversationBetween(request.recevierId(), senderId, ConversationType.direct);
-        return c.orElseGet(() -> createPrivateConversation(senderId, request.recevierId()));
+        Optional<Conversation> c = conversationRepository.findConversationBetween(event.recevierId(), event.senderId(), ConversationType.direct);
+        return c.orElseGet(() -> createPrivateConversation(event.senderId(), event.recevierId()));
     }
     private Conversation createPrivateConversation(UUID user1, UUID user2)
     {

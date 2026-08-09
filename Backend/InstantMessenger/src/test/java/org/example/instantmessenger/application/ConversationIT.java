@@ -83,8 +83,8 @@ class ConversationIT {
         User user2 = userRepository.save(
                 new User("Adam", "adam_" + UUID.randomUUID() + "@example.com", "hashed_password")
         );
-        MessageDto.SendMessageRequest request = new MessageDto.SendMessageRequest(null, user2.getId(), "siemka");
-        var c = conversationService.getOrCreatePrivateConversation(request, user1.getId());
+        MessageDto.SendMessageEvent sendMessageEvent = new MessageDto.SendMessageEvent(null, user1.getId(), user2.getId(), "siemka");
+        var c = conversationService.getOrCreatePrivateConversation(sendMessageEvent);
         assertThat(c).isNotNull();
     }
 }
